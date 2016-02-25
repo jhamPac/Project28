@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController
 {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        title = "What is that hummm"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addWhistle")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Home", style: .Plain, target: nil, action: nil)
+    }
+    
+    func addWhistle()
+    {
+        let vc = RecordWhistleViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
