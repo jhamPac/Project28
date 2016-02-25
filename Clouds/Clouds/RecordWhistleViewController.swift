@@ -86,17 +86,11 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
         stackView.addArrangedSubview(failLabel)
     }
     
-    class func getDocumentsDirectory() -> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as [String]
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    class func getWhistleURL() -> NSURL
+    class func getPathToAudioFile() -> NSURL
     {
-        let audioFilename = getDocumentsDirectory().stringByAppendingPathComponent("whistle.m4a")
-        let audioURL = NSURL(fileURLWithPath: audioFilename)
-        return audioURL
+        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let path = documentsUrl.URLByAppendingPathComponent("whistle.m4a")
+        return path
     }
     
     func startRecording()
@@ -105,7 +99,7 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
         
         recordButton.setTitle("Tap to Stop", forState: .Normal)
         
-        let audioURL = RecordWhistleViewController.getWhistleURL()
+        let audioURL = RecordWhistleViewController.getPathToAudioFile()
         print(audioURL.absoluteString)
         
         let settings = [
