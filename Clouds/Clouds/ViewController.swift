@@ -7,10 +7,19 @@
 //
 
 import UIKit
+import CloudKit
 import AVFoundation
 
 class ViewController: UIViewController
 {
+    var tableView: UITableView!
+    static var dirty = true
+    
+    override func loadView()
+    {
+        
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
