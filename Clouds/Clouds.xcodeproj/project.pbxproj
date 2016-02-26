@@ -17,6 +17,7 @@
 		DA1B33391C7F8BC80013237B /* AddCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B33381C7F8BC80013237B /* AddCommentsViewController.swift */; };
 		DA1B333B1C7FA3E50013237B /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B333A1C7FA3E50013237B /* SubmitViewController.swift */; };
 		DA1B333D1C7FB91F0013237B /* Whistle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B333C1C7FB91F0013237B /* Whistle.swift */; };
+		DA1B333F1C80FD7B0013237B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B333E1C80FD7B0013237B /* ResultsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		DA1B33381C7F8BC80013237B /* AddCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCommentsViewController.swift; sourceTree = "<group>"; };
 		DA1B333A1C7FA3E50013237B /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		DA1B333C1C7FB91F0013237B /* Whistle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Whistle.swift; sourceTree = "<group>"; };
+		DA1B333E1C80FD7B0013237B /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				DA1B33291C7E8A5E0013237B /* Assets.xcassets */,
 				DA1B332B1C7E8A5E0013237B /* LaunchScreen.storyboard */,
 				DA1B332E1C7E8A5E0013237B /* Info.plist */,
+				DA1B333E1C80FD7B0013237B /* ResultsViewController.swift */,
 			);
 			path = Clouds;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				DA1B333D1C7FB91F0013237B /* Whistle.swift in Sources */,
 				DA1B333B1C7FA3E50013237B /* SubmitViewController.swift in Sources */,
 				DA1B33351C7F6EBE0013237B /* RecordWhistleViewController.swift in Sources */,
+				DA1B333F1C80FD7B0013237B /* ResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

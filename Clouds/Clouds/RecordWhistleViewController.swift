@@ -18,16 +18,6 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
     var whistleRecorder: AVAudioRecorder!
     var whistlePlayer: AVAudioPlayer!
     
-    
-    // Class Method
-    
-    class func getPathToAudioFile() -> NSURL
-    {
-        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        let path = documentsUrl.URLByAppendingPathComponent("whistle.m4a")
-        return path
-    }
-    
     // MARK: - VC LifeCyle
     
     override func loadView()
@@ -77,6 +67,15 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
         {
             self.loadFailUI()
         }
+    }
+    
+    // MARK: - Class Methods
+    
+    class func getPathToAudioFile() -> NSURL
+    {
+        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let path = documentsUrl.URLByAppendingPathComponent("whistle.m4a")
+        return path
     }
     
     // MARK: - VC Methods
