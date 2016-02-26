@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 {
     var tableView: UITableView!
     var whistles = [Whistle]()
-    static var dirty = true
+    static var needsRefresh = true
     
     // MARK: - VC LifeCyle
     
@@ -54,7 +54,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         
-        if ViewController.dirty
+        if ViewController.needsRefresh
         {
             loadWhistles()
         }
@@ -81,7 +81,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         var newWhistles = [Whistle]()
         
-        // Give operation object property a closure to do
+        // give operation object property a closure to do
         operation.recordFetchedBlock = { (record) in
             let whistle = Whistle()
             whistle.recordID = record.recordID
@@ -94,7 +94,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil
                 {
-                    ViewController.dirty = false
+                    ViewController.needsRefresh = false
                     self.whistles = newWhistles
                     self.tableView.reloadData()
                 }
@@ -126,6 +126,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: - TableView Callbacks
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return 1

@@ -88,7 +88,7 @@ class SubmitViewController: UIViewController
                     self.status.text = "All Done"
                     self.spinner.stopAnimating()
                     
-                    ViewController.dirty = true
+                    ViewController.needsRefresh = true
                 }
                 else
                 {
