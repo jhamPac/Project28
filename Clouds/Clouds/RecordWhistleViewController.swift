@@ -18,6 +18,18 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
     var whistleRecorder: AVAudioRecorder!
     var whistlePlayer: AVAudioPlayer!
     
+    
+    // Class Method
+    
+    class func getPathToAudioFile() -> NSURL
+    {
+        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let path = documentsUrl.URLByAppendingPathComponent("whistle.m4a")
+        return path
+    }
+    
+    // MARK: - VC LifeCyle
+    
     override func loadView()
     {
         super.loadView()
@@ -97,11 +109,48 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
         stackView.addArrangedSubview(failLabel)
     }
     
-    class func getPathToAudioFile() -> NSURL
+    func recordTapped()
     {
-        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        let path = documentsUrl.URLByAppendingPathComponent("whistle.m4a")
-        return path
+        if whistleRecorder == nil
+        {
+            startRecording()
+            
+            // if playbutton hidden is false; then hide it
+            if !playButton.hidden
+            {
+                UIView.animateWithDuration(0.35) { [unowned self] in
+                    self.playButton.hidden = true
+                    self.playButton.alpha = 0
+                }
+            }
+        }
+        else
+        {
+            finishRecording(success: true)
+        }
+    }
+    
+    func playTapped()
+    {
+        let audioURL = RecordWhistleViewController.getPathToAudioFile()
+        
+        do
+        {
+            whistlePlayer = try AVAudioPlayer(contentsOfURL: audioURL)
+            whistlePlayer.play()
+        }
+        catch
+        {
+            let ac = UIAlertController(title: "Playback failed", message: "There was a problem playing your whistle; please try re-recording.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
+    }
+    
+    func nextTapped()
+    {
+        let vc = SelectGenreViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func startRecording()
@@ -160,50 +209,6 @@ class RecordWhistleViewController: UIViewController, AVAudioRecorderDelegate
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
         }
-    }
-    
-    func recordTapped()
-    {
-        if whistleRecorder == nil
-        {
-            startRecording()
-            
-            // if playbutton hidden is false; then hide it
-            if !playButton.hidden
-            {
-                UIView.animateWithDuration(0.35) { [unowned self] in
-                    self.playButton.hidden = true
-                    self.playButton.alpha = 0
-                }
-            }
-        }
-        else
-        {
-            finishRecording(success: true)
-        }
-    }
-    
-    func playTapped()
-    {
-        let audioURL = RecordWhistleViewController.getPathToAudioFile()
-        
-        do
-        {
-            whistlePlayer = try AVAudioPlayer(contentsOfURL: audioURL)
-            whistlePlayer.play()
-        }
-        catch
-        {
-            let ac = UIAlertController(title: "Playback failed", message: "There was a problem playing your whistle; please try re-recording.", preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
-        }
-    }
-    
-    func nextTapped()
-    {
-        let vc = SelectGenreViewController()
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - AVRecorder Callbacks

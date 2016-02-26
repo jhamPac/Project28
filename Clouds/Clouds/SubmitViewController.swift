@@ -71,7 +71,7 @@ class SubmitViewController: UIViewController
     func doSubmission()
     {
         
-        // Create a record to send to iCloud
+        // RecordType is like table in a database
         let whistleRecord = CKRecord(recordType: "Whistles")
         whistleRecord["genre"] = genre
         whistleRecord["comments"] = comments
