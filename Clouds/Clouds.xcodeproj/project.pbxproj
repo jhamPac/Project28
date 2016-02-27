@@ -72,12 +72,12 @@
 				DA1B33361C7F83C80013237B /* SelectGenreViewController.swift */,
 				DA1B33381C7F8BC80013237B /* AddCommentsViewController.swift */,
 				DA1B333A1C7FA3E50013237B /* SubmitViewController.swift */,
+				DA1B333E1C80FD7B0013237B /* ResultsViewController.swift */,
 				DA1B333C1C7FB91F0013237B /* Whistle.swift */,
 				DA1B33261C7E8A5E0013237B /* Main.storyboard */,
 				DA1B33291C7E8A5E0013237B /* Assets.xcassets */,
 				DA1B332B1C7E8A5E0013237B /* LaunchScreen.storyboard */,
 				DA1B332E1C7E8A5E0013237B /* Info.plist */,
-				DA1B333E1C80FD7B0013237B /* ResultsViewController.swift */,
 			);
 			path = Clouds;
 			sourceTree = "<group>";
