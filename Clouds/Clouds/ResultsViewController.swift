@@ -87,7 +87,49 @@ class ResultsViewController: UITableViewController
     
     func downloadTapped()
     {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        spinner.tintColor = UIColor.blackColor()
+        spinner.startAnimating()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
         
+        CKContainer.defaultContainer().publicCloudDatabase.fetchRecordWithID(whistle.recordID) { [unowned self] (record, error) -> Void in
+            if error == nil
+            {
+                if let record = record
+                {
+                    if let asset = record["audio"] as? CKAsset
+                    {
+                        self.whistle.audio = asset.fileURL
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Listen", style: .Plain, target: self, action: "listenTapped")
+                        }
+                    }
+                }
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue()) {
+                    // meaningful error message here!
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Download", style: .Plain, target: self, action: "downloadTapped")
+                }
+            }
+        }
+    }
+    
+    func listenTapped()
+    {
+        do
+        {
+            whistlePlayer = try AVAudioPlayer(contentsOfURL: whistle.audio)
+            whistlePlayer.play()
+        }
+        catch
+        {
+            let ac = UIAlertController(title: "Playback failed", message: "There was a problem playing your whistle; please try re-recording.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Table view data source
