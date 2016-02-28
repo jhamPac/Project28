@@ -40,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         title = "What is that hummm"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addWhistle")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Home", style: .Plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Genres", style: .Plain, target: self, action: "selectGenre")
         
         tableView.registerClass(UITableViewCell.self, forHeaderFooterViewReuseIdentifier: "Cell")
     }
@@ -123,6 +123,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         return titleString
+    }
+    
+    func selectGenre()
+    {
+        let vc = MyGenresViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - TableView Callbacks

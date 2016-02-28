@@ -26,12 +26,14 @@ class ResultsViewController: UITableViewController
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
+        // create query and sort descriptor to request records from iCloud
         let reference = CKReference(recordID: whistle.recordID, action: .DeleteSelf)
         let pred = NSPredicate(format: "owningWhistle == %@", argumentArray: [reference])
         let sort = NSSortDescriptor(key: "creationDate", ascending: true)
         let query = CKQuery(recordType: "Suggestions", predicate: pred)
         query.sortDescriptors = [sort]
         
+        // perform the query and get results
         CKContainer.defaultContainer().publicCloudDatabase.performQuery(query, inZoneWithID: nil) { [unowned self] (results, error) -> Void in
             
             guard error == nil else { print(error!.localizedDescription); return }
