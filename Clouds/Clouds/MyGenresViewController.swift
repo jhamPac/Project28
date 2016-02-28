@@ -36,7 +36,52 @@ class MyGenresViewController: UITableViewController
     
     func saveTapped()
     {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(myGenres, forKey: "myGenres")
         
+        let database = CKContainer.defaultContainer().publicCloudDatabase
+        
+        database.fetchAllSubscriptionsWithCompletionHandler() { [unowned self] (subscriptions, error) -> Void in
+            if error == nil
+            {
+                if let subscriptions = subscriptions
+                {
+                    for subscription in subscriptions
+                    {
+                        database.deleteSubscriptionWithID(subscription.subscriptionID) { (str, error) -> Void in
+                            if error != nil
+                            {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                    }
+                    
+                    // save subscription with the strings in myGenre
+                    for genre in self.myGenres
+                    {
+                        let predicate = NSPredicate(format: "genre == %@", argumentArray: [genre])
+                        let subscription = CKSubscription(recordType: "Whistles", predicate: predicate, options: .FiresOnRecordCreation)
+                        
+                        let notification = CKNotificationInfo()
+                        notification.alertBody = "Theres a new whistle for you"
+                        notification.soundName = UILocalNotificationDefaultSoundName
+                        
+                        subscription.notificationInfo = notification
+                        
+                        database.saveSubscription(subscription) { [unowned self] (result, error) -> Void in
+                            if error != nil
+                            {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                print(error!.localizedDescription)
+            }
+        }
     }
 
     // MARK: - Table view data source
